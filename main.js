@@ -41,6 +41,11 @@ var clearData = function () {
 
 };
 var getTheData = function () {
+	if (localStorage.length === 0){
+		alert("There is no data in Local Storage so default data was added.");
+		autoAddData();
+	}
+
 	var makeDivision = document.createElement('div');
 		makeDivision.setAttribute("id", "items");
 	
@@ -59,6 +64,7 @@ var getTheData = function () {
 		var obj = JSON.parse(value);
 		var makeSecondList = document.createElement('ul');
 			makeli.appendChild(makeSecondList);
+		getTheImage(obj.race[1], makeSecondList);
 		for (var n in obj) {
 			var makeSecondli = document.createElement('li');
 				makeSecondList.appendChild(makeSecondli);
@@ -70,6 +76,20 @@ var getTheData = function () {
 		makeLinksButtons (localStorage.key(i), links);
 	}
 };
+function getTheImage (raceName, makeSecondList) {
+	var imagesLi = document.createElement('li');
+	makeSecondList.appendChild(imagesLi);
+	var newImage = document.createElement('img');
+	var setTheSource = newImage.setAttribute("src", "img/"+ raceName + ".png");
+	imagesLi.appendChild(newImage);
+
+}
+function autoAddData(){
+	for (var n in json){
+		var id = Math.floor(Math.random()*10000001);
+		localStorage.setItem(id, JSON.stringify(json[n]));	
+	}
+}
 function makeLinksButtons (key, links) {
 	var editTheLink = document.createElement('a');
 	editTheLink.href = "#";
@@ -157,78 +177,3 @@ var errorMessageTwo = ('error');
 clearButton.addEventListener("click", clearData);
 displayButton.addEventListener("click", getTheData);
 submitButton.addEventListener("click", validate);
-
-
-
-
-
-
-
-//For Project 4 you will do the following:
-//Create Image Thumbnails
-//Apply JavaScript: Add Image Thumbnails
-//Apply JavaScript: Add JSON Object
-//Apply CSS
-
-//Create Image Thumbnails
-/*
-We're going to want to spruice up our displayed items a bit with some images 
-that represent the category of the item. This will help the user scan the list 
-for items in a particular category. Before we can do that we need to create 
-the images.
-
-Requirements
-Create a small image icon for each cateogory item in your select field.
-Images should be a reasonable size for a mobile device and will be displayed 
-with the data that is displayed on the screen.
-Use whatever program you want to create your images (Photoshop/Illustrator etc.).
-Images should be consistent and have the same look and feel.
-Do not steal images off the internet.
-*/
-
-//Apply JavaScript: Add Image Thumbnails
-/*
-Let's take the image thumbnails you created and add them to our displayed items 
-using JavaScript.
-
-Requirements
-Save your images in an img folder. Image files won't actually be saved into 
-Local Storage (because local storage only stores strings!).
-Display the appropriate image thumbnail with each item that is displayed on the 
-screen. You'll likely want to create a new function for this and then modify your 
-getData function which writes the data to the screen.
-*/
-
-//Apply JavaScript: Add JSON Object
-/*
-Create a JSON Object and use it to populate local storage with data 
-if no data exists in local storage when a user clicks Display Data. 
-Your JSON Object should be in a new .js file. This will make it easier 
-to use in your next course.
-
-Requirements
-Create at least 2-3 items in your JSON Object
-Items get added only if nothing exists in local storage when a user tries to display data.
-Items should still be editable and can be delted individually though the interface.
-The JSON Object is in it's own file called json.js
-*/
-
-//Apply CSS
-/*
-This will be the easy one. I'm not going to require any specific tags 
-or properties to be used here. You've made it far and hopefully have a 
-cool little app that works that you even find useful! Give it some style 
-and make it look great with some CSS. The only requirements are:
-
-Requirements
-Don't leave anything looking "unfinished". What do I mean by "unfinished"? 
-I mean if it looks like it's just something you threw up there and didn't 
-give any thought to how it looks. It has default styling (for example: you 
-didn't change any colors or fonts or didn't care to add margins/padding/line-height 
-to make your content legible).
-Do your best to remember good design principles and color theory. I'm not going to 
-be grading harshly on these like in the MMD courses. But these are STILL important 
-to remember and you should be exercising them in any design that you do. It's good 
-practice! Make it look as decent as you can. Get creative if you want. I'm not looking 
-for fancy graphics. CSS colors & gradients are all I expect but you can do a lot with just that.
-*/
